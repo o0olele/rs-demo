@@ -1,5 +1,5 @@
 # 原文
-- [引用和借用](https://zh.practice.rs/ownership/borrowing.html)
+- [引用和借用](https://course.rs/basic/ownership/borrowing.html)
 - [References and Borrowing](https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html)
 
 # 运行结果
