@@ -7,39 +7,42 @@
 Hearts
 Diamonds
 
-[src/main.rs:64] c1 = PokerCard {
+[src/main.rs:65] c1 = PokerCard {
     suit: Clubs,
     value: 1,
 }
-[src/main.rs:65] c2 = PokerCard {
+[src/main.rs:66] c2 = PokerCard {
     suit: Diamonds,
     value: 12,
 }
-[src/main.rs:70] c3 = Clubs(
+[src/main.rs:71] c3 = Clubs(
     1,
 )
-[src/main.rs:71] c4 = Diamonds(
+[src/main.rs:72] c4 = Diamonds(
     3,
 )
-[src/main.rs:76] c5 = Clubs(
+[src/main.rs:77] c5 = Clubs(
     1,
 )
-[src/main.rs:77] c6 = Diamonds(
+[src/main.rs:78] c6 = Diamonds(
     'd',
 )
 
-[src/main.rs:91] m = Quit
-[src/main.rs:91] m = Move {
+[src/main.rs:92] m = Quit
+[src/main.rs:92] m = Move {
     x: 1,
     y: 1,
 }
-[src/main.rs:91] m = ChangeColor(
+[src/main.rs:92] m = ChangeColor(
     255,
     255,
     0,
 )
 
 1
+
+链表的长度是: 3
+3, 2, 1, Nil
 ~~~
 
 # Option<T>
