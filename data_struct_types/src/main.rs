@@ -117,14 +117,23 @@ fn tuple_struct() {
     println!("{}", black.0)
 }
 
-struct AlwaysEqual;
+struct Unit;
+trait SomeTrait {
+    // ...定义一些行为
+}
 
-// 我们不关心 AlwaysEqual 的字段数据，只关心它的行为，因此将它声明为单元结构体，然后再为它实现某个特征
-// impl SomeTrait for AlwaysEqual {
-// }
+// 我们并不关心结构体中有什么数据( 字段 )，但我们关心它的行为。
+// 因此这里我们使用没有任何字段的单元结构体，然后为它实现一些行为
+impl SomeTrait for Unit {  }
+
+// 填空，让代码工作
+fn do_something_with_unit(u: Unit) { 
+    
+  }
 
 fn unit_like_struct() {
-    let subject = AlwaysEqual;
+    let u = Unit;
+    do_something_with_unit(u);
 }
 
 // struct Owner {
