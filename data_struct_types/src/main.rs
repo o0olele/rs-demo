@@ -2,6 +2,9 @@ fn main() {
     create_struct();
     update_struct();
     struct_in_memory();
+    tuple_struct();
+    unit_like_struct();
+    struct_ownership();
 }
 
 #[derive(Debug)]
@@ -103,4 +106,34 @@ fn struct_in_memory() {
 
     println!("{:?}", f1);
     println!("{} is {} bytes long", f1_name, f1_length);
+
+    println!();
+}
+
+struct Color(i32, i32, i32);
+
+fn tuple_struct() {
+    let black = Color(0, 0, 0);
+    println!("{}", black.0)
+}
+
+struct AlwaysEqual;
+
+// 我们不关心 AlwaysEqual 的字段数据，只关心它的行为，因此将它声明为单元结构体，然后再为它实现某个特征
+// impl SomeTrait for AlwaysEqual {
+// }
+
+fn unit_like_struct() {
+    let subject = AlwaysEqual;
+}
+
+// struct Owner {
+//     username: &str, //missing lifetime specifier
+//     email: &str,
+//     sign_in_count: u64,
+//     active: bool,
+// }
+
+fn struct_ownership() {
+    
 }
