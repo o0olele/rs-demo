@@ -10,6 +10,8 @@ fn main() {
     if let None = none {
         println!("none is None!")
     }
+
+    println!();
 }
 
 fn plus_one(x: Option<i32>) -> Option<i32> {
