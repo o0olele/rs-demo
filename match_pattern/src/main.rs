@@ -6,6 +6,11 @@ fn main() {
 
     destructuring_structs();
     destructuring_enums();
+    destructuring_nested_structs_enums();
+    destructuring_structs_tuples();
+    destructuring_array();
+
+    ignore_match();
 }
 
 fn literals() {
@@ -66,6 +71,7 @@ fn with_range() {
     println!();
 }
 
+#[derive(Debug)]
 struct Point {
     x: i32,
     y: i32,
@@ -107,7 +113,9 @@ fn destructuring_enums() {
         Message::Quit => {
             println!("The Quit variant has no data to destructure.");
         }
-    
+        Message::Move { x: 1, y } => {
+            println!("Move in the x direction 0 and in the y direction {y}");
+        }
         Message::Move { x, y } => {
             println!("Move in the x direction {x} and in the y direction {y}");
         }
@@ -117,5 +125,109 @@ fn destructuring_enums() {
         Message::ChangeColor(r, g, b) => {
             println!("Change the color to red {r}, green {g}, and blue {b}",)
         }
+    }
+
+    println!();
+}
+
+enum Color {
+    Rgb(i32, i32, i32),
+    Hsv(i32, i32, i32),
+}
+
+enum NestedMessage {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(Color),
+}
+
+fn destructuring_nested_structs_enums() {
+    let msg = NestedMessage::ChangeColor(Color::Hsv(0, 160, 255));
+
+    match msg {
+        NestedMessage::ChangeColor(Color::Rgb(r, g, b)) => {
+            println!("Change color to red {r}, green {g}, and blue {b}");
+        }
+        NestedMessage::ChangeColor(Color::Hsv(h, s, v)) => {
+            println!("Change color to hue {h}, saturation {s}, value {v}")
+        }
+        _ => (),
+    }
+
+    println!();
+}
+
+fn destructuring_structs_tuples() {
+    let ((feet, inches), Point { x, y }) = ((3, 10), Point { x: 3, y: -10 });
+    println!("{} {} {} {}", feet, inches, x, y);
+
+    println!();
+}
+
+fn destructuring_array() {
+    let arr: [u16; 2] = [114, 514];
+    let [x, y] = arr;
+
+    assert_eq!(x, 114);
+    assert_eq!(y, 514);
+
+    let arr: &[u16] = &[114, 514];
+
+    if let [x, ..] = arr {
+        println!("{:?} {:p} {:p}", x, x, &114);
+        assert_eq!(x, &114);
+    }
+
+    if let &[.., y] = arr {
+        assert_eq!(y, 514);
+    }
+
+    let arr: &[u16] = &[];
+
+    assert!(matches!(arr, [..]));
+    assert!(!matches!(arr, [x, ..]));
+}
+
+fn ignore_match() {
+    let mut setting_value = Some(5);
+    let new_setting_value = Some(10);
+
+    match (setting_value, new_setting_value) {
+        (Some(_), Some(_)) => {
+            println!("Can't overwrite an existing customized value");
+        }
+        _ => {
+            setting_value = new_setting_value;
+        }
+    }
+
+    println!("setting is {:?}", setting_value);
+
+    let s = Some(String::from("Hello!"));
+
+    // if let Some(_s) = s {
+    //     println!("found a string");
+    // }
+    if let Some(_) = s {
+        println!("found a string");
+    }
+    println!("{:?}", s);
+
+    let origin = Point { x: 0, y: 0};
+    match origin {
+        Point { x, .. } => println!("x is {}", x),
+    }
+
+    let numbers = (2, 4, 8, 16, 32);
+    // match numbers {
+    //     (.., second, ..) => {
+    //         println!("Some numbers: {}", second)
+    //     },
+    // }
+    match numbers {
+        (first, .., last) => {
+            println!("Some numbers: {}, {}", first, last);
+        },
     }
 }
