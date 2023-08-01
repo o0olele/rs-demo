@@ -21,11 +21,18 @@ Change color to hue 0, saturation 160, value 255
 
 3 10 3 -10
 
-114 0x562fd956e030 0x562fd956e034
+114 0x56377bb8a030 0x56377bb8a034
 Can't overwrite an existing customized value
 setting is Some(5)
 found a string
 Some("Hello!")
 x is 0
 Some numbers: 2, 32
+
+less than five: 4
+Default case, x = Some(5)
+at the end: x = Some(5), y = 10
+no
+
+Found an id in range: 5
 ~~~

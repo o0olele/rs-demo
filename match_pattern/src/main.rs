@@ -11,6 +11,9 @@ fn main() {
     destructuring_array();
 
     ignore_match();
+
+    match_guard();
+    at_match();
 }
 
 fn literals() {
@@ -209,12 +212,16 @@ fn ignore_match() {
     // if let Some(_s) = s {
     //     println!("found a string");
     // }
+    // match s {
+    //     Some(_c) => println!("found a string"),
+    //     _ => ()
+    // }
     if let Some(_) = s {
         println!("found a string");
     }
     println!("{:?}", s);
 
-    let origin = Point { x: 0, y: 0};
+    let origin = Point { x: 0, y: 0 };
     match origin {
         Point { x, .. } => println!("x is {}", x),
     }
@@ -228,6 +235,68 @@ fn ignore_match() {
     match numbers {
         (first, .., last) => {
             println!("Some numbers: {}, {}", first, last);
-        },
+        }
     }
+
+    println!()
+}
+
+fn match_guard() {
+    let num = Some(4);
+    match num {
+        Some(x) if x < 5 => println!("less than five: {}", x),
+        Some(x) => println!("{}", x),
+        None => (),
+    }
+
+    let x = Some(5);
+    let y = 10;
+    match x {
+        Some(50) => println!("Got 50"),
+        Some(x) if x == y => println!("Matched, n = {}", x),
+        // Some(n) if n == y => println!("Matched, n = {}", n),
+        _ => println!("Default case, x = {:?}", x),
+    }
+
+    println!("at the end: x = {:?}, y = {}", x, y);
+
+    let x = 4;
+    let y = false;
+
+    match x {
+        4 | 5 | 6 if y => println!("yes"),
+        _ => println!("no"),
+    }
+
+    println!()
+}
+
+enum HiMessage {
+    Hello { id: i32 },
+    World { name: String}
+}
+fn at_match() {
+    let msg = HiMessage::Hello { id: 5 };
+
+    match msg {
+        HiMessage::Hello { id: id_variable @ 3..=7 } => {
+            println!("Found an id in range: {}", id_variable)
+        },
+        HiMessage::Hello { id: 10..=12 } => {
+            println!("Found an id in another range")
+            // println!("Found an id in another range {}", id)
+        },
+        HiMessage::Hello { id } => {
+            println!("Found some other id: {}", id)
+        },
+        _ => ()
+    }
+
+    // let msg = HiMessage::World { name: String::from("world") };
+    // match msg {
+    //     HiMessage::World { name:  } => {
+
+    //     },
+    //     _ => ()
+    // }
 }
